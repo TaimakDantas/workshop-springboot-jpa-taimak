@@ -11,7 +11,7 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
-import jakarta.persistence.OneToMany;
+import jakarta.persistence.ManyToMany;
 import jakarta.persistence.Table;
 
 @Entity
@@ -25,8 +25,8 @@ public class Category implements Serializable{
 	private Long id;
 	private String name;
 	
-//	@JsonIgnore
-//	@OneToMany(mappedBy = "product")
+	@JsonIgnore
+	@ManyToMany(mappedBy = "categories")
 	private Set<Product> products = new HashSet<>();
 	
 	public Category() {
@@ -59,7 +59,11 @@ public class Category implements Serializable{
 	public void setProducts(Set<Product> products) {
 		this.products = products;
 	}
-	
+		
+	public Set<Product> getProducts() {
+		return products;
+	}
+
 	@Override
 	public int hashCode() {
 		return Objects.hash(id);
